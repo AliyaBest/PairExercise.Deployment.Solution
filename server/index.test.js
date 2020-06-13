@@ -7,21 +7,14 @@ const seedUsers = require('../script/users.json')
 
 describe('GET /users', () => {
 
-  before(async () => {
+  before(async function () {
     await db.sync({ force: true })
     await db.models.user.bulkCreate(seedUsers)
   })
 
-  try {
-    it('should return list of users', async () => {
-      const res = await request(app).get('/api/users')
-      expect(res.status).to.equal(200)
-      expect(res.body.length).to.equal(seedUsers.length)
-      done()
-    })
-  } catch (error) {
-    done(error)
-  }
-
-
+  it('should return list of users', async function () {
+    const res = await request(app).get('/api/users')
+    expect(res.status).to.equal(200)
+    expect(res.body.length).to.equal(seedUsers.length)
+  })
 })
