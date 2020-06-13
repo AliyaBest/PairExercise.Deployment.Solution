@@ -12,10 +12,16 @@ describe('GET /users', () => {
     await db.models.user.bulkCreate(seedUsers)
   })
 
-  it('should return list of users', async () => {
-    const res = await request(app).get('/api/users')
-    expect(res.status).to.equal(200)
-    expect(res.body.length).to.equal(seedUsers.length)
-    done()
-  })
+  try {
+    it('should return list of users', async () => {
+      const res = await request(app).get('/api/users')
+      expect(res.status).to.equal(200)
+      expect(res.body.length).to.equal(seedUsers.length)
+      done()
+    })
+  } catch (error) {
+    done(error)
+  }
+
+
 })
